@@ -14,17 +14,18 @@ app.post("/api/create-checkout-session", async (req, res) => {
   if (!product) return res.json({ message: "Please pass required parameter" });
   product.image =
     "https://res.cloudinary.com/dihuxyiyl/image/upload/v1688632574/DMC_pfjrih.jpg";
+
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: [
       {
         price_data: {
-          currency: "INR",
+          currency: "inr",
           product_data: {
             name: product.name,
             images: [product.image],
           },
-          unit_amount: product.price * product.quantity,
+          unit_amount: product.price * 100,
         },
         quantity: product.quantity,
       },
@@ -35,6 +36,7 @@ app.post("/api/create-checkout-session", async (req, res) => {
   });
   res.json({ id: session.id, url: session.url });
 });
+
 app.get("/api/", (req, res) => {
   res.json({
     message: "Server is listening..",
