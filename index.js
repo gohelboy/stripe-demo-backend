@@ -33,10 +33,10 @@ app.post("/api/create-checkout-session", async (req, res) => {
     success_url: "https://stripe-gohel.netlify.app/success",
     cancel_url: "https://stripe-gohel.netlify.app/cancel",
   });
-  res.res.sendStatus(200).json({ id: session.id, url: session.url });
+  res.res.json({ id: session.id, url: session.url });
 });
 app.get("/api/", (req, res) => {
-  res.res.sendStatus(200).json({
+  res.res.json({
     message: "Server is listening..",
   });
 });
